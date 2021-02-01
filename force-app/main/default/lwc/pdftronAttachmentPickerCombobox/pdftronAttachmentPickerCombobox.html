@@ -1,0 +1,21 @@
+<template>
+    <lightning-card>
+        <template if:true={error}>
+            <lightning-card>
+                <p style="color: red">Failed to load documents: {error.body.message}</p>>
+            </lightning-card>
+        </template>
+        <template if:false={loadFinished}>
+            <div class="spinnerContainer">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+        <template if:true={loadFinished}>
+            <div id="attachmentCombobox" class="slds-col">
+                <lightning-combobox class="slds-p-bottom_medium .slds-size_1-of-2" name="progress" value={value}
+                    label="Choose an attachment" placeholder="Choose an attachment..." options={picklistOptions}
+                    variant="label-hidden" onchange={handleChange}></lightning-combobox>
+            </div>
+        </template>
+    </lightning-card>
+</template>
