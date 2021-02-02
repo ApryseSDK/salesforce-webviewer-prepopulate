@@ -27,8 +27,6 @@ export default class PdftronWvInstance extends LightningElement {
   pageRef;
 
   connectedCallback() {
-    //'/sfc/servlet.shepherd/version/download/0694x000000pEGyAAM'
-    ///servlet/servlet.FileDownload?file=documentId0694x000000pEGyAAM
     registerListener('blobSelected', this.handleBlobSelected, this);
     window.addEventListener('message', this.handleReceiveMessage.bind(this), false);
   }
@@ -42,10 +40,6 @@ export default class PdftronWvInstance extends LightningElement {
     account = JSON.parse(account);
     const payload = account;
     this.iframeWindow.postMessage({type: 'SHOW_ACCOUNT_DATA', payload} , '*');
-  }
-
-  callParent() {
-    alert('test');
   }
 
   handleBlobSelected(record) {
@@ -124,38 +118,6 @@ export default class PdftronWvInstance extends LightningElement {
     }
   }
 	
-	handleCallout(endpoint, token){
-		fetch(endpoint,
-		{
-			method : "GET",
-			headers : {
-				"Content-Type": "application/pdf",
-				"Authorization": token
-			}
-		}).then(function(response) {
-			return response.json();
-		})
-		.then((myJson) =>{
-			// console.log('%%%%'+JSON.stringify(myJson));
-			let doc_list = [];
-			for(let v of Object.values(myJson.results)){
-				console.log('%%%%'+JSON.stringify(v));
-				// console.log('$$$$'+v.title);
-				doc_list.push();
-			}
-			
-			// console.log('*****'+JSON.stringify(movies_list));
-			
-			this.documents = doc_list;
-			
-		})
-		.catch(e=>console.log(e));
-	}
-
-  @api
-  openDocument() {
-  }
-
   @api
   closeDocument() {
     this.iframeWindow.postMessage({type: 'CLOSE_DOCUMENT' }, '*')
